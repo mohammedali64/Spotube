@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CLIENT_TOKEN } from '../utils.js/constants';
 import { addTracks } from '../utils.js/songSlice';
 
 const useSearchSongs = () => {
     const dispatch = useDispatch();
     const [tracks, setTracks] = useState("");
     const songName = useSelector((store) => store.songs.songName);
+    const userToken = localStorage.getItem('spotify_access_token');
 
     if(tracks){}
     const searchSongs = async (songName) => {
@@ -16,7 +16,7 @@ const useSearchSongs = () => {
              `https://api.spotify.com/v1/search?q=${encodeURIComponent(songName)}&type=track&limit=10`,
              {
                 headers: {
-                  Authorization: `Bearer ${CLIENT_TOKEN}`,
+                  Authorization: `Bearer ${userToken}`,
                 },
               }
             
